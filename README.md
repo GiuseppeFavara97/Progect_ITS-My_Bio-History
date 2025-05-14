@@ -13,11 +13,11 @@ L'applicazione permette di gestire e visualizzare la propria storia personale/bi
 ## Tecnologie utilizzate
 
 - **Frontend:** (inserisci tecnologia, es. React, Flutter)
-- **Backend:** (es. Spring Boot, Node.js)
+- **Backend:** Node.js
 - **Database:** (es. MySQL, MongoDB)
 - **Altro:** (es. Docker, JWT, Firebase)
 
 ## Installazione
 
-1. Clona il progetto:
+1. Clona il progetto se non lo hai mai fatto:
    git clone https://github.com/GiuseppeFavara97/Progect_ITS-My_Bio-History.git
