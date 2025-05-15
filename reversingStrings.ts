@@ -1,7 +1,4 @@
- function reverseString(str: string): string {
-    return str.split('').reverse().join('');
-}
-console.log(reverseString("strops")); 
+
 
 /** type Reverser = (input: string) => string;
 
@@ -21,4 +18,5 @@ function reversestringa(str2: string): string {
 
 const uaglio = reversestringa('stressed');
 console.log(uaglio);
+
 
