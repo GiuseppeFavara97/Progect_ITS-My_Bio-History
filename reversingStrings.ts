@@ -1,11 +1,22 @@
-<<<<<<< HEAD
-function reverseString(str) {
-    return str.split('').reverse().join('');
+
+
+/** type Reverser = (input: string) => string;
+
+const reverseString: Reverser = (input) => input.split('').reverse().join('');
+
+let uaglio: string = "stressed";
+let reversed: string = reverseString(uaglio);
+console.log(reversed); // Outputs: "desserts"  Altro metodo **/
+
+function reversestringa(str2: string): string {
+    let reverse = '';
+    for (let i = str2.length - 1; i >= 0; i--) {
+        reverse += str2[i];
+    }
+    return reverse;
 }
-console.log(reverseString("stressed"));
-=======
- function reverseString(str: string): string {
-    return str.split('').reverse().join('');
-}
-console.log(reverseString("strops")); 
->>>>>>> d98a5b3e9c971f97fa42cc92f3f77b7871259e71
+
+const uaglio = reversestringa('stressed');
+console.log(uaglio);
+
+
