@@ -1,4 +1,4 @@
-class Utenti{
+class User{
   id: number; 
   user_name : string;
   email: string;
@@ -47,6 +47,9 @@ console.log("compleanno"+ utente.birthday);
 console.log("sesso" + utente.sex);
 console.log("telefono"+ utente.phone_number);
 console.log("created_at"+ utente.created_at);
+
+
+
 
 
 
