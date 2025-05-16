@@ -18,4 +18,6 @@ class Patients {
         this.relation_to_patient = relation_to_patient;
         this.deleted_at = deleted_at;
     }
+
+    }
 }
