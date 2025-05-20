@@ -28,28 +28,38 @@ class User{
     this.phone_number=phone_number;
     this.created_at=created_at
   }
+  
+  mostraInformazioni():string {
+    let aux:string = "\n" + this.user_name + "\n"
+    aux += this.email + "\n"
+    aux += this.crypto_password + "\n"
+    aux += this.first_name + "\n"
+    aux += this.last_name + "\n"
+    aux += this.porvince + "\n"
+    aux += this.birthday + "\n"
+    aux += this.sex + "\n"
+    aux += this.phone_number + "\n"
+    aux += this.created_at + "\n"
+
+    return aux;
+  }
+
   functionname(params:string):void {
     
+  }
+  aggiornaDati() {
+
+
+  }
+  cancellaDati(){
+
   }
 }
 
 
-const utente = new Utenti("motiv", "mannina.vito@gmail.com", "12345","vito", "mannina", "trapani", "trapani", "15/05/25", "M", "3279844229","15/05/25")
-console.log(utente);
-console.log("Nome Utente " + utente.user_name);
-console.log("Email " + utente.email);
-console.log("crypto_password"+ utente.crypto_password);
-console.log("first_name" + utente.first_name);
-console.log("last_name" + utente.last_name);
-console.log("birthday_place" + utente.birthday_place);
-console.log("porvince"+ utente.porvince);
-console.log("compleanno"+ utente.birthday);
-console.log("sesso" + utente.sex);
-console.log("telefono"+ utente.phone_number);
-console.log("created_at"+ utente.created_at);
-
-
-
-
-
-
+const utente = new User("motiv", "mannina.vito@gmail.com", "12345","vito", "mannina", "trapani", "trapani", "15/05/25", "M", "3279844229","15/05/25")
+console.log("Utente " + utente.mostraInformazioni());
+utente.aggiornaDati();
+console.log("Utente " + utente.mostraInformazioni());
+utente.cancellaDati();
+console.log("utente" + utente.mostraInformazioni());
