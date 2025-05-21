@@ -32,9 +32,57 @@ class Allergies {
     this.start_date = start_date;
     this.end_date = end_date;
   }
+
+  // ✅ Metodo statico per creare un'istanza da terminale
+  static async acquisisciDaTerminale(): Promise<Allergies> {
+    const inputData = await inquirer.prompt([
+      {
+        type: 'input',
+        name: 'allergen',
+        message: "Inserisci l'allergene"
+      },
+      {
+        type: 'input',
+        name: 'reaction',
+        message: 'Inserisci il grado di reazione'
+      },
+      {
+        type: 'input',
+        name: 'severity',
+        message: 'Inserisci la gravità'
+      },
+      {
+        type: 'input',
+        name: 'note',
+        message: 'Inserisci note'
+      },
+      {
+        type: 'input',
+        name: 'start_date',
+        message: 'Inserisci la data di inizio (YYYY-MM-DD)'
+      },
+      {
+        type: 'input',
+        name: 'end_date',
+        message: 'Inserisci la data di fine (YYYY-MM-DD)'
+      }
+    ]);
+
+    return new Allergies(
+      2,
+      1,
+      1,
+      inputData.allergen,
+      inputData.reaction,
+      inputData.severity,
+      inputData.note,
+      new Date(inputData.start_date),
+      new Date(inputData.end_date)
+    );
+  }
 }
 
-// Oggetto di esempio
+// Oggetto di esempio iniziale
 let allergen = new Allergies(
   1,
   1,
@@ -43,29 +91,43 @@ let allergen = new Allergies(
   'swelling of the hands',
   'medium',
   'no note',
-  new Date(2003, 10, 1), // Mese 10 = novembre
+  new Date(2003, 10, 1),
   new Date()
 );
 
 async function main() {
-  const answers = await inquirer.prompt([
-    {
-      type: 'checkbox',
-      name: 'action',
-      message: "Vuoi 'visualizzare' o 'eliminare' l'allergene?",
-      choices: ['visualizzare', 'eliminare']
+  let running = true;
+  while (running) {
+    const answers = await inquirer.prompt([
+      {
+        type: 'list',
+        name: 'action',
+        message: "Cosa vuoi fare?",
+        choices: ['visualizzare', 'eliminare', 'aggiungi', 'esci']
+      }
+      
+    ]);
+
+    switch (answers.action) {
+      case 'visualizzare':
+        console.log('Allergia:', allergen);
+        break;
+      case 'eliminare':
+        allergen.allergen = '';
+        console.log('Allergene eliminato');
+        break;
+      case 'aggiungi':
+        allergen = await Allergies.acquisisciDaTerminale();
+        console.log('Nuovo allergene aggiunto:');
+        console.log(allergen);
+        break;
+      case 'esci':
+        running = false;
+        console.log('Uscita dal programma.');
+        break;
+      default:
+        console.log('Azione non riconosciuta.');
     }
-  ]);
-
-  if (answers.action.includes('visualizzare')) {
-    console.log('Allergia:', allergen);
-    console.log(answers.azione);
-  }
-
-  if (answers.action.includes('eliminare')) {
-    allergen.allergen = '';
-    console.log('Allergene eliminato');
   }
 }
-
 main();

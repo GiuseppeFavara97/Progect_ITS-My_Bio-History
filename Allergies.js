@@ -49,35 +49,105 @@ var Allergies = /** @class */ (function () {
         this.start_date = start_date;
         this.end_date = end_date;
     }
+    // ✅ Metodo statico per creare un'istanza da terminale
+    Allergies.acquisisciDaTerminale = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var inputData;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, inquirer_1.default.prompt([
+                            {
+                                type: 'input',
+                                name: 'allergen',
+                                message: "Inserisci l'allergene"
+                            },
+                            {
+                                type: 'input',
+                                name: 'reaction',
+                                message: 'Inserisci il grado di reazione'
+                            },
+                            {
+                                type: 'input',
+                                name: 'severity',
+                                message: 'Inserisci la gravità'
+                            },
+                            {
+                                type: 'input',
+                                name: 'note',
+                                message: 'Inserisci note'
+                            },
+                            {
+                                type: 'input',
+                                name: 'start_date',
+                                message: 'Inserisci la data di inizio (YYYY-MM-DD)'
+                            },
+                            {
+                                type: 'input',
+                                name: 'end_date',
+                                message: 'Inserisci la data di fine (YYYY-MM-DD)'
+                            }
+                        ])];
+                    case 1:
+                        inputData = _a.sent();
+                        return [2 /*return*/, new Allergies(2, 1, 1, inputData.allergen, inputData.reaction, inputData.severity, inputData.note, new Date(inputData.start_date), new Date(inputData.end_date))];
+                }
+            });
+        });
+    };
     return Allergies;
 }());
-// Oggetto di esempio
-var allergen = new Allergies(1, 1, 1, 'peanuts', 'swelling of the hands', 'medium', 'no note', new Date(2003, 10, 1), // Mese 10 = novembre
-new Date());
+// Oggetto di esempio iniziale
+var allergen = new Allergies(1, 1, 1, 'peanuts', 'swelling of the hands', 'medium', 'no note', new Date(2003, 10, 1), new Date());
 function main() {
     return __awaiter(this, void 0, void 0, function () {
-        var answers;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, inquirer_1.default.prompt([
-                        {
-                            type: 'checkbox',
-                            name: 'action',
-                            message: "Vuoi 'visualizzare' o 'eliminare' l'allergene?",
-                            choices: ['visualizzare', 'eliminare']
-                        }
-                    ])];
+        var running, answers, _a;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0:
+                    running = true;
+                    _b.label = 1;
                 case 1:
-                    answers = _a.sent();
-                    if (answers.action.includes('visualizzare')) {
-                        console.log('Allergia:', allergen);
-                        console.log(answers.azione);
+                    if (!running) return [3 /*break*/, 10];
+                    return [4 /*yield*/, inquirer_1.default.prompt([
+                            {
+                                type: 'list',
+                                name: 'action',
+                                message: "Cosa vuoi fare?",
+                                choices: ['visualizzare', 'eliminare', 'aggiungi', 'esci']
+                            }
+                        ])];
+                case 2:
+                    answers = _b.sent();
+                    _a = answers.action;
+                    switch (_a) {
+                        case 'visualizzare': return [3 /*break*/, 3];
+                        case 'eliminare': return [3 /*break*/, 4];
+                        case 'aggiungi': return [3 /*break*/, 5];
+                        case 'esci': return [3 /*break*/, 7];
                     }
-                    if (answers.action.includes('eliminare')) {
-                        allergen.allergen = '';
-                        console.log('Allergene eliminato');
-                    }
-                    return [2 /*return*/];
+                    return [3 /*break*/, 8];
+                case 3:
+                    console.log('Allergia:', allergen);
+                    return [3 /*break*/, 9];
+                case 4:
+                    allergen.allergen = '';
+                    console.log('Allergene eliminato');
+                    return [3 /*break*/, 9];
+                case 5: return [4 /*yield*/, Allergies.acquisisciDaTerminale()];
+                case 6:
+                    allergen = _b.sent();
+                    console.log('Nuovo allergene aggiunto:');
+                    console.log(allergen);
+                    return [3 /*break*/, 9];
+                case 7:
+                    running = false;
+                    console.log('Uscita dal programma.');
+                    return [3 /*break*/, 9];
+                case 8:
+                    console.log('Azione non riconosciuta.');
+                    _b.label = 9;
+                case 9: return [3 /*break*/, 1];
+                case 10: return [2 /*return*/];
             }
         });
     });
