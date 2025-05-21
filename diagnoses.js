@@ -77,12 +77,49 @@ var Diagnosis = /** @class */ (function () {
     };
     Diagnosis.modifica = function () {
         return __awaiter(this, void 0, void 0, function () {
+            var scelte, i, diagnosi, scelta, modificauser, date;
             return __generator(this, function (_a) {
-                if (Diagnosis.diagnoses.length === 0) {
-                    console.log(chalk_1.default.red("Nessuna diagnosi trovata"));
-                    return [2 /*return*/];
+                switch (_a.label) {
+                    case 0:
+                        if (Diagnosis.diagnoses.length === 0) {
+                            console.log(chalk_1.default.red("Nessuna diagnosi trovata"));
+                            return [2 /*return*/];
+                        }
+                        scelte = [];
+                        for (i = 0; i < Diagnosis.diagnoses.length; i++) {
+                            diagnosi = Diagnosis.diagnoses[i];
+                            scelte.push({
+                                name: "".concat(diagnosi.date, " - ").concat(diagnosi.description), // creo una stringa con la data e la descrizione presi dall'oggetto diagnosi
+                                value: i // assegno il valore di i all'oggetto
+                            });
+                        }
+                        return [4 /*yield*/, inquirer_1.default.prompt([
+                                {
+                                    type: 'list',
+                                    name: 'risulta',
+                                    message: ' Seleziona la diagnosi da modificare',
+                                    choices: scelte
+                                }
+                            ])];
+                    case 1:
+                        scelta = _a.sent();
+                        return [4 /*yield*/, inquirer_1.default.prompt([
+                                { type: 'input', name: 'data', message: 'Inserisci la data' },
+                                { type: 'input', name: 'description', message: 'Inserisci la descrizione' },
+                            ])];
+                    case 2:
+                        modificauser = _a.sent();
+                        date = new Date(modificauser.data);
+                        if (isNaN(date.getTime())) {
+                            console.error('Data non valida usa il formato ANNO-MESE-GIORNO');
+                            Diagnosis.modifica();
+                            return [2 /*return*/];
+                        }
+                        Diagnosis.diagnoses[scelta.risulta].date = date;
+                        Diagnosis.diagnoses[scelta.risulta].description = modificauser.description;
+                        console.log(chalk_1.default.green("Diagnosi ".concat(Diagnosis.diagnoses[scelta.risulta].date, " con Descrizione ").concat(Diagnosis.diagnoses[scelta.risulta].description, " /n \u00E8 stata Modificata")));
+                        return [2 /*return*/];
                 }
-                return [2 /*return*/];
             });
         });
     };
@@ -155,34 +192,37 @@ function acqui() {
                         case 'create': return [3 /*break*/, 2];
                         case 'read': return [3 /*break*/, 4];
                         case 'update': return [3 /*break*/, 6];
-                        case 'delete': return [3 /*break*/, 7];
-                        case 'esci': return [3 /*break*/, 9];
+                        case 'delete': return [3 /*break*/, 8];
+                        case 'esci': return [3 /*break*/, 10];
                     }
-                    return [3 /*break*/, 10];
+                    return [3 /*break*/, 11];
                 case 2: return [4 /*yield*/, Diagnosis.acquisizione()];
                 case 3:
                     _b.sent();
-                    return [3 /*break*/, 11];
+                    return [3 /*break*/, 12];
                 case 4: return [4 /*yield*/, Diagnosis.visualizza()];
                 case 5:
                     _b.sent();
-                    return [3 /*break*/, 11];
-                case 6:
+                    return [3 /*break*/, 12];
+                case 6: 
+                // await Diagnosis.modifica(); in corso di implementazione
+                return [4 /*yield*/, Diagnosis.modifica()];
+                case 7:
                     // await Diagnosis.modifica(); in corso di implementazione
-                    console.log(" in corso");
-                    return [3 /*break*/, 11];
-                case 7: return [4 /*yield*/, Diagnosis.cancellazione()];
-                case 8:
+                    _b.sent();
+                    return [3 /*break*/, 12];
+                case 8: return [4 /*yield*/, Diagnosis.cancellazione()];
+                case 9:
                     _b.sent();
                     return [2 /*return*/];
-                case 9:
+                case 10:
                     console;
                     return [2 /*return*/];
-                case 10:
+                case 11:
                     console.log("Opzione non valida");
-                    return [3 /*break*/, 11];
-                case 11: return [4 /*yield*/, acqui()];
-                case 12:
+                    return [3 /*break*/, 12];
+                case 12: return [4 /*yield*/, acqui()];
+                case 13:
                     _b.sent();
                     return [2 /*return*/];
             }

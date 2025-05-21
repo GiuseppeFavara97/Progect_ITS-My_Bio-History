@@ -42,6 +42,37 @@ class Diagnosis {
             console.log(chalk.red("Nessuna diagnosi trovata"));
             return;
         }
+        const scelte: {name:string , value: number}[] = []; // creo un array di oggetti con le proprietà name e value
+        for (let i = 0; i < Diagnosis.diagnoses.length; i++) {
+                const diagnosi = Diagnosis.diagnoses[i]; // creo  diagnosi che è un oggetto di tipo Diagnosis e gli assegno l'oggetto i dell'array
+                    scelte.push({ // aggiungo all'array scelte un oggetto con le proprietà name e value presi dall'oggetto diagnosi
+                    name: `${diagnosi.date} - ${diagnosi.description}`, // creo una stringa con la data e la descrizione presi dall'oggetto diagnosi
+                    value: i // assegno il valore di i all'oggetto
+            });
+        }
+        const scelta = await inquirer.prompt ([
+        {
+            type: 'list',
+            name: 'risulta',
+            message: ' Seleziona la diagnosi da modificare',
+            choices: scelte
+        }
+         ]);
+         
+       
+        const modificauser = await inquirer.prompt ([
+                {type: 'input', name: 'data' , message: 'Inserisci la data' },
+                {type: 'input', name: 'description', message: 'Inserisci la descrizione'},
+        ])
+        const date = new Date(modificauser.data);           
+                if (isNaN(date.getTime()))       {
+                    console.error('Data non valida usa il formato ANNO-MESE-GIORNO');
+                    Diagnosis.modifica();
+                    return;
+                }
+       Diagnosis.diagnoses[scelta.risulta].date = date;
+       Diagnosis.diagnoses[scelta.risulta].description = modificauser.description;
+        console.log (chalk.green(`Diagnosi ${Diagnosis.diagnoses[scelta.risulta].date} con Descrizione ${Diagnosis.diagnoses[scelta.risulta].description} /n è stata Modificata`));
         // work in progress
     }
 
@@ -104,7 +135,7 @@ const risposta = await inquirer.prompt([
             break;
         case 'update':
             // await Diagnosis.modifica(); in corso di implementazione
-            console.log(" in corso")
+            await Diagnosis.modifica();
             break;    
         case 'delete':
             await Diagnosis.cancellazione();
