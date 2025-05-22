@@ -20,5 +20,7 @@ class Patients {
     }
 }
 
+
 const nuovoPaziente = new Patients(1, 1, 1, "Mario Rossi", "Via Roma 1", "SSRMRO66B23L423J", "Padre", new Date());
 console.log(nuovoPaziente);
+
