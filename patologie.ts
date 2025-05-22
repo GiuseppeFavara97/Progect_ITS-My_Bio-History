@@ -1,4 +1,4 @@
-class Patologie 
+class Patologie //qui creo la classe delle patologie
 {
 id: number;
 nome: string;
