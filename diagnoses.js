@@ -71,8 +71,33 @@ var Diagnosis = /** @class */ (function () {
         });
     };
     Diagnosis.visualizza = function () {
-        Diagnosis.diagnoses.forEach(function (diagnosi) {
-            console.log("Data: ".concat(diagnosi.date, " Descrizione: ").concat(diagnosi.description));
+        return __awaiter(this, void 0, void 0, function () {
+            var userchoice;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (!(Diagnosis.diagnoses.length === 0)) return [3 /*break*/, 4];
+                        console.log(chalk_1.default.red("Nessuna diagnosi presente vuoi inserirne una?"));
+                        return [4 /*yield*/, inquirer_1.default.prompt([
+                                { type: 'confirm', name: 'scelta', message: '', default: true }
+                            ])];
+                    case 1:
+                        userchoice = _a.sent();
+                        if (!(userchoice.scelta === true)) return [3 /*break*/, 3];
+                        return [4 /*yield*/, Diagnosis.acquisizione()];
+                    case 2:
+                        _a.sent();
+                        return [3 /*break*/, 4];
+                    case 3:
+                        console.log('Ritorno al menu di selezione');
+                        _a.label = 4;
+                    case 4:
+                        Diagnosis.diagnoses.forEach(function (diagnosi) {
+                            console.log("Data: ".concat(diagnosi.date, " Descrizione: ").concat(diagnosi.description));
+                        });
+                        return [2 /*return*/];
+                }
+            });
         });
     };
     Diagnosis.modifica = function () {
@@ -204,23 +229,20 @@ function acqui() {
                 case 5:
                     _b.sent();
                     return [3 /*break*/, 12];
-                case 6: 
-                // await Diagnosis.modifica(); in corso di implementazione
-                return [4 /*yield*/, Diagnosis.modifica()];
+                case 6: return [4 /*yield*/, Diagnosis.modifica()];
                 case 7:
-                    // await Diagnosis.modifica(); in corso di implementazione
                     _b.sent();
                     return [3 /*break*/, 12];
                 case 8: return [4 /*yield*/, Diagnosis.cancellazione()];
                 case 9:
                     _b.sent();
-                    return [2 /*return*/];
+                    return [3 /*break*/, 12];
                 case 10:
                     console;
                     return [2 /*return*/];
                 case 11:
                     console.log("Opzione non valida");
-                    return [3 /*break*/, 12];
+                    return [2 /*return*/];
                 case 12: return [4 /*yield*/, acqui()];
                 case 13:
                     _b.sent();

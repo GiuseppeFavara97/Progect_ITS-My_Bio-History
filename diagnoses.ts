@@ -1,5 +1,5 @@
 import inquirer from "inquirer";
-import chalk from "chalk";
+import chalk, { Chalk } from "chalk";
 
 class Diagnosis {
     date: Date;
@@ -32,7 +32,19 @@ class Diagnosis {
                 console.log(chalk.green("Diagnosi acquisita con successo!"));
     
     }
-    static visualizza(): void {
+    static async visualizza(): Promise<void> {
+        if  (Diagnosis.diagnoses.length === 0) { //check se array di oggetti è vuoto 
+            console.log(chalk.red("Nessuna diagnosi presente vuoi inserirne una?"));
+            
+            const userchoice = await inquirer.prompt ([ // chiedo all'utente se vuole acquisire una diagnosi
+                {type: 'confirm', name: 'scelta', message: '', default: true}
+            ]);
+            if (userchoice.scelta === true) {   // check della scelta utente in caso è true richiamo il metodo di acquisizione altrimenti il programma continua tornando al menu principale
+                await Diagnosis.acquisizione();
+            } else { 
+                    console.log('Ritorno al menu di selezione')
+                }
+        }
         Diagnosis.diagnoses.forEach((diagnosi) => {
             console.log(`Data: ${diagnosi.date} Descrizione: ${diagnosi.description}`);
         });
@@ -73,7 +85,6 @@ class Diagnosis {
        Diagnosis.diagnoses[scelta.risulta].date = date;
        Diagnosis.diagnoses[scelta.risulta].description = modificauser.description;
         console.log (chalk.green(`Diagnosi ${Diagnosis.diagnoses[scelta.risulta].date} con Descrizione ${Diagnosis.diagnoses[scelta.risulta].description} /n è stata Modificata`));
-        // work in progress
     }
 
 
@@ -134,19 +145,21 @@ const risposta = await inquirer.prompt([
             await Diagnosis.visualizza();
             break;
         case 'update':
-            // await Diagnosis.modifica(); in corso di implementazione
             await Diagnosis.modifica();
-            break;    
+            break;   
         case 'delete':
             await Diagnosis.cancellazione();
-            return;
+            break;
         case 'esci':
             console
             return;
         default:
             console.log("Opzione non valida");
-            break;
+            return;
     }
     await acqui();
 }
+
+
 acqui();
+
