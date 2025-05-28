@@ -22,7 +22,7 @@ class Care {
 
 // Funzione principale che gestisce l'inserimento dei dati
 function inserimento(): void {
-    const arraydi: Care[] = []; // Creo un array vuoto di oggetti Care
+    const arraydi: Care[] = []; // Creo un array vuoto di oggetti Care e inizializzo la variabile
     let a = 0; // Contatore per limitare il numero di inserimenti a 2
 
     // Funzione ricorsiva fino a 2 volte per chiedere i dati all'utente
